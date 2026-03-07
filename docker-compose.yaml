@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   petshop_database:
     image: mongo:latest
@@ -9,28 +11,11 @@ services:
       - "27017:27017"
     volumes:
       - petshop_db_data:/data/db
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
-    environment:
-      DB_VENDOR: POSTGRES
-      DB_ADDR: petshop_database
-      DB_DATABASE: petshop_db
-      DB_USER: petshop_user
-      DB_PASSWORD: petshop_password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: adminpassword
-    ports:
-      - "8080:8080"
-    depends_on:
-      - keycloak_db
-    volumes:
-      - keycloak_data:/opt/keycloak/data
+
   keycloak_db:
-    image: postgres:latest
+    image: postgres:15
     container_name: keycloak_db
     environment:
-      POSTGRES_ROOT_PASSWORD: rootpassword
       POSTGRES_DB: keycloak_db
       POSTGRES_USER: keycloak_user
       POSTGRES_PASSWORD: keycloak_password
@@ -38,7 +23,26 @@ services:
       - "5433:5432"
     volumes:
       - keycloak_db_data:/var/lib/postgresql/data
-    
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak_db
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak_password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: adminpassword
+    ports:
+      - "8080:8080"
+    depends_on:
+      - keycloak_db
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
 volumes:
   petshop_db_data:
   keycloak_db_data:
