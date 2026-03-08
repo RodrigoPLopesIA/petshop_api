@@ -20,8 +20,10 @@ import com.petshop.petshop_api.models.Client;
 import com.petshop.petshop_api.repositories.ClientRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ClientService {
 
@@ -32,35 +34,39 @@ public class ClientService {
     private ClientMapper mapper;
 
     public Page<ClientResponseDTO> search(ClientFilterDTO filter, Pageable pageable) {
-
+        log.info("Filters: {}", filter);
         Query query = new Query().with(pageable);
 
         if (filter.name() != null) {
+            log.info("Filter name: {}", filter.name());
             query.addCriteria(
                     Criteria.where("name.firstName").regex(filter.name(), "i"));
         }
 
         if (filter.email() != null) {
+            log.info("Filter email: {}", filter.email());
             query.addCriteria(
                     Criteria.where("email").regex(filter.email(), "i"));
         }
 
         if (filter.phone() != null) {
+            log.info("Filter phone: {}", filter.phone());
             query.addCriteria(
                     Criteria.where("phone").is(filter.phone()));
         }
 
         if (filter.cpf() != null) {
+            log.info("Filter cpf: {}", filter.cpf());
             query.addCriteria(
                     Criteria.where("cpf").is(filter.cpf()));
         }
 
         List<Client> clients = mongoTemplate.find(query, Client.class);
-
         long total = mongoTemplate.count(
                 Query.of(query).limit(-1).skip(-1),
                 Client.class);
 
+        log.info("Clients: {}, Total: {}", clients, total);
         return new PageImpl<>(
                 clients.stream().map(mapper::toResponseDTO).toList(),
                 pageable,
