@@ -1,0 +1,14 @@
+server:
+    port: 8000
+spring:
+    application:
+        name: petshop_api
+    
+    mongodb:
+        uri: mongodb://root:rootpassword@localhost:27017/petshop_db?authSource=admin
+
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:8080/realms/petshop-realm
