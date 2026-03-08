@@ -15,13 +15,17 @@ public interface ClientMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "address", source = "address")
+    @Mapping(target = "name", source = "name")
     Client toEntity(ClientRequestDTO dto);
 
     @Mapping(target = "address", source = "address")
+    @Mapping(target = "name", source = "name")
     ClientResponseDTO toResponseDTO(Client client);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "address", source = "address")
+    @Mapping(target = "name", source = "name")
     void updateEntityFromDTO(ClientRequestDTO dto, @MappingTarget Client client);
 }

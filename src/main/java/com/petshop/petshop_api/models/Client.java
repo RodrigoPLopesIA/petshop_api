@@ -22,7 +22,7 @@ public class Client {
     @Id
     private String id;
 
-    private String name;
+    private Name name;
 
     private String phone;
 
