@@ -1,5 +1,4 @@
 package com.petshop.petshop_api.dtos.requests;
-import org.checkerframework.checker.units.qual.C;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -7,12 +7,14 @@ import lombok.Builder;
 @Builder
 public record ClientResponseDTO(
      String id,
-     String name,
+     NameResponseDTO name,
      String phone,
      String email,
      String cpf,
-     String address,
+     AddressResponseDTO address,
      String notes,
-     LocalDateTime createdAt) {
+     LocalDateTime createdAt,
+     LocalDateTime updatedAt
+) {
     
 }
