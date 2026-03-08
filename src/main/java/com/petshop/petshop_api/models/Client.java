@@ -30,7 +30,7 @@ public class Client {
 
     private String cpf;
 
-    private String address;
+    private Address address;
 
     private String notes;
 
