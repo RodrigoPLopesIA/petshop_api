@@ -1,41 +1,42 @@
 package com.petshop.petshop_api.models;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-@Document(collection = "clients")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Client {
+@Document(collection = "pets")
+public class Pet {
 
     @Id
     private String id;
 
-    private Name name;
+    private String name;
 
-    private String phone;
+    private String species; // dog, cat, bird
 
-    private String email;
+    private String breed;
 
-    private String cpf;
+    private Integer age;
 
-    private Address address;
+    private Double weight;
+
+    private String color;
 
     private String notes;
+
+    private String clientId;
 
 
     @CreatedDate
