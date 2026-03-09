@@ -8,6 +8,8 @@ import com.petshop.petshop_api.models.Client;
 
 public interface ClientRepository extends MongoRepository<Client, String> {
 
+    Page<Client> findByCpf(String cpf, Pageable pageable);
+
     Page<Client> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
     Page<Client> findByEmailContainingIgnoreCase(String email, Pageable pageable);
