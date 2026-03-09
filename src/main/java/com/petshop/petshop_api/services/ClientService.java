@@ -29,9 +29,7 @@ public class ClientService {
 
     private final ClientRepository repository;
     private final MongoTemplate mongoTemplate;
-
-    @Autowired
-    private ClientMapper mapper;
+    private final ClientMapper mapper;
 
     public Page<ClientResponseDTO> search(ClientFilterDTO filter, Pageable pageable) {
         log.info("Filters: {}", filter);
